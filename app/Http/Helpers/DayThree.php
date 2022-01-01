@@ -76,22 +76,22 @@ class DayThree
 
     private function getAnswerPartTwo(array $inputArray)
     {
-        $mostCommonBinary = implode('', $this->getMostCommonBinary($inputArray));
-        $leastCommonBinary = implode('', $this->getLeastCommonBinary($inputArray));
+        $mostCommonBinary = implode('', $this->getCommonBinary($inputArray));
+        $leastCommonBinary = implode('', $this->getCommonBinary($inputArray, true));
 
         return bindec($mostCommonBinary) * bindec($leastCommonBinary);
     }
 
-    private function getMostCommonBinary(array $inputArray)
+    private function getCommonBinary(array $inputArray, bool $leastCommon = false)
     {
-        $mostCommonBinary = array_filter($inputArray);
+        $commonBinary = array_filter($inputArray);
 
         $zeros = 0;
         $ones = 0;
 
         for($i = 0; $i <= 11; $i++) {
-            if(count($mostCommonBinary) > 1) {
-                foreach($mostCommonBinary as $input) {
+            if(count($commonBinary) > 1) {
+                foreach($commonBinary as $input) {
                     $binaryArray = str_split($input);
 
                     if(isset($binaryArray[$i]) && $binaryArray[$i] == 1) {
@@ -102,9 +102,9 @@ class DayThree
                 }
 
                 if($zeros === $ones || $zeros < $ones) {
-                    $mostCommonBinary = $this->removeArrayPosition($mostCommonBinary, $i, 0);
+                    $commonBinary = $this->removeArrayPosition($commonBinary, $i, $leastCommon ? 1 : 0);
                 } elseif($zeros > $ones) {
-                    $mostCommonBinary = $this->removeArrayPosition($mostCommonBinary, $i, 1);
+                    $commonBinary = $this->removeArrayPosition($commonBinary, $i, $leastCommon ? 0 : 1);
                 }
 
                 $zeros = 0;
@@ -112,41 +112,7 @@ class DayThree
             }
         }
 
-        return $mostCommonBinary;
-    }
-
-    private function getLeastCommonBinary(array $inputArray)
-    {
-        $leastCommonBinary = array_filter($inputArray);
-
-        $zeros = 0;
-        $ones = 0;
-
-        for($i = 0; $i <= 11; $i++) {
-
-            if(count($leastCommonBinary) > 1) {
-                foreach($leastCommonBinary as $input) {
-                    $binaryArray = str_split($input);
-
-                    if(isset($binaryArray[$i]) && $binaryArray[$i] == 1) {
-                        $ones += 1;
-                    } elseif(isset($binaryArray[$i]) && $binaryArray[$i] == 0) {
-                        $zeros += 1;
-                    }
-                }
-
-                if($zeros === $ones || $zeros < $ones) {
-                    $leastCommonBinary = $this->removeArrayPosition($leastCommonBinary, $i, 1);
-                } elseif($zeros > $ones) {
-                    $leastCommonBinary = $this->removeArrayPosition($leastCommonBinary, $i, 0);
-                }
-
-                $zeros = 0;
-                $ones = 0;
-            }
-        }
-
-        return $leastCommonBinary;
+        return $commonBinary;
     }
 
     private function removeArrayPosition(array $inputArray, int $key, int $removeValue)
