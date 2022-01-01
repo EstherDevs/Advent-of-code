@@ -22,3 +22,5 @@ Route::get('/', function () {
 Route::get('day-1', [AnswerController::class, 'getAnswerDayOne']);
 
 Route::get('day-2', [AnswerController::class, 'getAnswerDayTwo']);
+
+Route::get('day-3', [AnswerController::class, 'getAnswerDayThree']);

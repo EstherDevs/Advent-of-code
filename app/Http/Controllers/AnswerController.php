@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Helpers\DayOne;
+use App\Http\Helpers\DayThree;
 use App\Http\Helpers\DayTwo;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
@@ -37,6 +38,17 @@ class AnswerController extends Controller
         $inputArray = $this->getDayInputAsArray($input);
 
         $helper = new DayTwo();
+        $answer = $helper->getAnswer($inputArray);
+
+        return 'Today\'s answer: ' . $answer;
+    }
+
+    public function getAnswerDayThree()
+    {
+        $input = $this->getDayInputFile('day-3.php');
+        $inputArray = $this->getDayInputAsArray($input);
+
+        $helper = new DayThree();
         $answer = $helper->getAnswer($inputArray);
 
         return 'Today\'s answer: ' . $answer;
