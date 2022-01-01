@@ -9,7 +9,7 @@ class DayThree
 
     }
 
-    public function getAnswer($inputArray)
+    public function getAnswer(array $inputArray)
     {
         $answerPartOne = $this->getAnswerPartOne($inputArray);
         $answerPartTwo = $this->getAnswerPartTwo($inputArray);
@@ -17,7 +17,7 @@ class DayThree
         return 'The first part is: ' . $answerPartOne . ' The second part is: ' . $answerPartTwo;
     }
 
-    private function getAnswerPartOne($inputArray)
+    private function getAnswerPartOne(array $inputArray)
     {
         $oneBinaries = array_fill(0, 12, 0);
         $zeroBinaries = array_fill(0, 12, 0);
@@ -40,7 +40,7 @@ class DayThree
         return bindec($mostEntriesBinary) * bindec($leastEntriesBinary);
     }
 
-    private function getMostEntriesBinary($oneBinaries, $zeroBinaries)
+    private function getMostEntriesBinary(array $oneBinaries, array $zeroBinaries)
     {
         $mostEntriesBinary = [];
 
@@ -57,7 +57,7 @@ class DayThree
         return $mostEntriesBinary;
     }
 
-    private function getLeastEntriesBinary($oneBinaries, $zeroBinaries)
+    private function getLeastEntriesBinary(array $oneBinaries, array $zeroBinaries)
     {
         $leastEntriesBinary = [];
 
@@ -74,7 +74,7 @@ class DayThree
         return $leastEntriesBinary;
     }
 
-    private function getAnswerPartTwo($inputArray)
+    private function getAnswerPartTwo(array $inputArray)
     {
         $mostCommonBinary = implode('', $this->getMostCommonBinary($inputArray));
         $leastCommonBinary = implode('', $this->getLeastCommonBinary($inputArray));
@@ -82,7 +82,7 @@ class DayThree
         return bindec($mostCommonBinary) * bindec($leastCommonBinary);
     }
 
-    private function getMostCommonBinary($inputArray)
+    private function getMostCommonBinary(array $inputArray)
     {
         $mostCommonBinary = array_filter($inputArray);
 
@@ -115,7 +115,7 @@ class DayThree
         return $mostCommonBinary;
     }
 
-    private function getLeastCommonBinary($inputArray)
+    private function getLeastCommonBinary(array $inputArray)
     {
         $leastCommonBinary = array_filter($inputArray);
 
@@ -149,7 +149,7 @@ class DayThree
         return $leastCommonBinary;
     }
 
-    private function removeArrayPosition($inputArray, $key, $removeValue)
+    private function removeArrayPosition(array $inputArray, int $key, int $removeValue)
     {
         foreach($inputArray as $inputKey => $inputValue) {
             $binaryArray = str_split($inputValue);
