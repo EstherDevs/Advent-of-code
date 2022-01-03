@@ -11,16 +11,17 @@ class DayFour
 
     public function getAnswer($input)
     {
-        // dd(gettype($input));
-
         $bingoNumbers = $this->getBingoNumbers($input);
         $bingoCards = $this->getBingoCards($input, $bingoNumbers);
 
         $bingoCardsArrays = $this->getBingoCardsAsMultidimensionalArray($bingoCards);
 
-        dd($bingoNumbers, $bingoCardsArrays);
+        $bingoWinner = $this->playBingo($bingoNumbers, $bingoCardsArrays);
 
-        $answerPartOne = 'Unknown';
+
+//        dd($bingoNumbers, $bingoCardsArrays);
+
+        $answerPartOne = $bingoWinner;
         $answerPartTwo = 'Unknown';
 
         return 'The first part is: ' . $answerPartOne . ' The second part is: ' . $answerPartTwo;
@@ -44,13 +45,12 @@ class DayFour
         $cardRowsArray = array_values($cardRowsArray);
 
         $bingoCardsArray = [];
-
         $fiveCardRows = [];
 
         for($i = 0; $i < count($cardRowsArray); $i++) {
-            if($i % 5 !== 0) {
+            if($i % 5 !== 0 || $i === 0) {
                 array_push($fiveCardRows, preg_split('/\s+/', $cardRowsArray[$i]));
-            } elseif ($i % 5 === 0) {
+            } elseif ($i % 5 === 0 && $i > 0) {
                 $singleBingoCard = ['singleBingoCard' => $fiveCardRows];
                 array_push($bingoCardsArray, $singleBingoCard);
                 $singleBingoCard = null;
@@ -62,12 +62,23 @@ class DayFour
             }
         }
 
-        dd($bingoCardsArray);
+        return $bingoCardsArray;
+    }
 
-        foreach($cardsArray as $card) {
-            $bingoCardsArray[] = preg_split('/\s+/', $card);
-        }
+    private function playBingo(string $bingoNumbers, array $bingoCardsArrays)
+    {
+        $bingoNumbers = explode(',', $bingoNumbers);
+        $checkedCards = $bingoCardsArrays;
 
-        return $singleBingoCardArray;
+//        dd($checkedCards);
+
+//        foreach ($bingoNumbers as $number) {
+//            foreach($checkedCards as $singleCard) {
+//                dd($singleCard);
+//            }
+//        }
+
+
+        return 'the squid wins!';
     }
 }
