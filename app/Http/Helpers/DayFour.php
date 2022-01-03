@@ -89,8 +89,11 @@ class DayFour
                 $winner = $this->checkWinCondition($bingoCards, $checkedCards, $number);
 
                 if($isPartTwo && $winner) {
-                    $checkedCards[$key]['hasWon'] = true;
-                    $lastWinner = $this->checkLastWinCondition($checkedCards);
+                    if(count($checkedCards) > 1) {
+                        unset($checkedCards[$key]);
+                    } elseif(count($checkedCards) === 1) {
+                        return $winner;
+                    }
                 }
 
                 if(!$isPartTwo && $winner || isset($lastWinner) && $isPartTwo && $lastWinner && $winner) {
@@ -128,16 +131,6 @@ class DayFour
         }
 
         return '';
-    }
-
-    private function checkLastWinCondition(array $checkedCards): bool
-    {
-        foreach($checkedCards as $singleCard) {
-            if(isset($singleCard['hasWon']) && $singleCard['hasWon'] === false) {
-                return false;
-            }
-        }
-        return true;
     }
 
     private function getAnswerSum(int $currentNumber, array $winningCard)
