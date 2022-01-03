@@ -18,13 +18,8 @@ class DayFour
 
         $bingoCardsArrays = $this->getBingoCardsAsMultidimensionalArray($bingoCards);
 
-        $bingoWinner = $this->playBingo($bingoNumbers, $bingoCardsArrays);
-
-
-//        dd($bingoNumbers, $bingoCardsArrays);
-
-        $answerPartOne = $bingoWinner;
-        $answerPartTwo = 'Unknown';
+        $answerPartOne = $this->playBingo($bingoNumbers, $bingoCardsArrays, false);
+        $answerPartTwo = $this->playBingo($bingoNumbers, $bingoCardsArrays, true);
 
         return 'The first part is: ' . $answerPartOne . ' The second part is: ' . $answerPartTwo;
     }
@@ -53,7 +48,7 @@ class DayFour
             if($i % 5 !== 0 || $i === 0) {
                 array_push($fiveCardRows, preg_split('/\s+/', $cardRowsArray[$i]));
             } elseif ($i % 5 === 0 && $i > 0) {
-                $singleBingoCard = ['singleBingoCard' => $fiveCardRows];
+                $singleBingoCard = ['singleBingoCard' => $fiveCardRows, 'hasWon' => false];
                 array_push($bingoCardsArray, $singleBingoCard);
                 $singleBingoCard = null;
                 $fiveCardRows = [];
@@ -67,20 +62,19 @@ class DayFour
         return $bingoCardsArray;
     }
 
-    private function playBingo(string $bingoNumbers, array $bingoCardsArrays)
+    private function playBingo(string $bingoNumbers, array $bingoCardsArrays, bool $isPartTwo)
     {
         $bingoNumbers = explode(',', $bingoNumbers);
 
-        $winner = $this->getWinner($bingoNumbers, $bingoCardsArrays);
+        $winner = $this->getWinner($bingoNumbers, $bingoCardsArrays, $isPartTwo);
 
-        dd($winner);
-
-        return 'the squid wins!';
+        return $winner;
     }
 
-    private function getWinner(array $bingoNumbers, array $bingoCards)
+    private function getWinner(array $bingoNumbers, array $bingoCards, bool $isPartTwo)
     {
         $checkedCards = $bingoCards;
+        $lastWinner = false;
 
         foreach ($bingoNumbers as $number) {
             foreach($checkedCards as $key => $singleCard) {
@@ -91,10 +85,17 @@ class DayFour
                         }
                     }
                 }
-            }
-            $winner = $this->checkWinCondition($bingoCards, $checkedCards, $number);
-            if($winner) {
-                return $winner;
+
+                $winner = $this->checkWinCondition($bingoCards, $checkedCards, $number);
+
+                if($isPartTwo && $winner) {
+                    $checkedCards[$key]['hasWon'] = true;
+                    $lastWinner = $this->checkLastWinCondition($checkedCards);
+                }
+
+                if(!$isPartTwo && $winner || isset($lastWinner) && $isPartTwo && $lastWinner && $winner) {
+                    return $winner;
+                }
             }
         }
 
@@ -103,8 +104,7 @@ class DayFour
 
     private function checkWinCondition(array $bingoCards, array $checkedCards, int $currentNumber)
     {
-        foreach($checkedCards as $key => $singleCard) {
-//            dd($singleCard['singleBingoCard']);
+        foreach($checkedCards as $singleCard) {
             for($i = 0; $i < 5; $i++) {
                 if(isset($singleCard['singleBingoCard'][$i]) &&
                     $singleCard['singleBingoCard'][$i][0] === 'X' &&
@@ -112,8 +112,7 @@ class DayFour
                     $singleCard['singleBingoCard'][$i][2] === 'X' &&
                     $singleCard['singleBingoCard'][$i][3] === 'X' &&
                     $singleCard['singleBingoCard'][$i][4] === 'X' ) {
-
-                    $winningAnswer = $this->getAnswerPartOne($currentNumber, $singleCard['singleBingoCard']);
+                    $winningAnswer = $this->getAnswerSum($currentNumber, $singleCard['singleBingoCard']);
 
                     return 'we have a winner horizontally! The winning number is: ' . $winningAnswer;
                 } elseif($singleCard['singleBingoCard'][0][$i] === 'X' &&
@@ -121,8 +120,7 @@ class DayFour
                     $singleCard['singleBingoCard'][2][$i] === 'X' &&
                     $singleCard['singleBingoCard'][3][$i] === 'X' &&
                     $singleCard['singleBingoCard'][4][$i] === 'X') {
-
-                    $winningAnswer = $this->getAnswerPartOne($currentNumber, $singleCard['singleBingoCard']);
+                    $winningAnswer = $this->getAnswerSum($currentNumber, $singleCard['singleBingoCard']);
 
                     return 'we have a winner vertically! The winning number is: ' . $winningAnswer;
                 }
@@ -132,7 +130,17 @@ class DayFour
         return '';
     }
 
-    private function getAnswerPartOne(int $currentNumber, array $winningCard)
+    private function checkLastWinCondition(array $checkedCards): bool
+    {
+        foreach($checkedCards as $singleCard) {
+            if(isset($singleCard['hasWon']) && $singleCard['hasWon'] === false) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private function getAnswerSum(int $currentNumber, array $winningCard)
     {
         $remainingNumberSum = 0;
 
