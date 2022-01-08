@@ -84,8 +84,8 @@ class DayFive
             $lenY = count($rangeY);
 
             if ($lenX == $lenY) {
-                // Digagonal line
-                $firstY = $rangeY[0];
+                // Diagonal line
+
                 $yCounter = 0;
                 foreach ($rangeX as $xPos) {
                     if(!isset($mapArray[$xPos][$rangeY[$yCounter]])) {
