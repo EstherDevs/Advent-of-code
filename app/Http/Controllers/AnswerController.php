@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Helpers\DayEight;
 use App\Http\Helpers\DayFive;
 use App\Http\Helpers\DayFour;
 use App\Http\Helpers\DayOne;
+use App\Http\Helpers\DaySeven;
 use App\Http\Helpers\DaySix;
 use App\Http\Helpers\DayThree;
 use App\Http\Helpers\DayTwo;
@@ -89,6 +91,11 @@ class AnswerController extends Controller
 
     public function getAnswerDaySeven()
     {
+//        $input = $this->getDayInputFile('day-7.php');
+//
+//        $helper = new DaySeven();
+//        $answer = $helper->getAnswer($input);
+
         $answer = '';
 
         return 'Today\'s answer: ' . $answer;
@@ -96,7 +103,12 @@ class AnswerController extends Controller
 
     public function getAnswerDayEight()
     {
-        $answer = '';
+        $input = $this->getDayInputFile('day-8.php');
+        $input = trim($input);
+        $inputArray = $this->getDayInputAsArray($input);
+
+        $helper = new DayEight();
+        $answer = $helper->getAnswer($inputArray);
 
         return 'Today\'s answer: ' . $answer;
     }
