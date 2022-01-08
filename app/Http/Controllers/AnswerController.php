@@ -64,4 +64,151 @@ class AnswerController extends Controller
 
         return 'Today\'s answer: ' . $answer;
     }
+
+    public function getAnswerDayFive()
+    {
+        $answer = '';
+
+        return 'Today\'s answer: ' . $answer;
+    }
+
+    public function getAnswerDaySix()
+    {
+        $answer = '';
+
+        return 'Today\'s answer: ' . $answer;
+    }
+
+    public function getAnswerDaySeven()
+    {
+        $answer = '';
+
+        return 'Today\'s answer: ' . $answer;
+    }
+
+    public function getAnswerDayEight()
+    {
+        $answer = '';
+
+        return 'Today\'s answer: ' . $answer;
+    }
+
+    public function getAnswerDayNine()
+    {
+        $answer = '';
+
+        return 'Today\'s answer: ' . $answer;
+    }
+
+    public function getAnswerDayTen()
+    {
+        $answer = '';
+
+        return 'Today\'s answer: ' . $answer;
+    }
+
+    public function getAnswerDayEleven()
+    {
+        $answer = '';
+
+        return 'Today\'s answer: ' . $answer;
+    }
+
+    public function getAnswerDayTwelve()
+    {
+        $answer = '';
+
+        return 'Today\'s answer: ' . $answer;
+    }
+
+    public function getAnswerDayThirteen()
+    {
+        $answer = '';
+
+        return 'Today\'s answer: ' . $answer;
+    }
+
+    public function getAnswerDayFourteen()
+    {
+        $answer = '';
+
+        return 'Today\'s answer: ' . $answer;
+    }
+
+    public function getAnswerDayFifteen()
+    {
+        $answer = '';
+
+        return 'Today\'s answer: ' . $answer;
+    }
+
+    public function getAnswerDaySixteen()
+    {
+        $answer = '';
+
+        return 'Today\'s answer: ' . $answer;
+    }
+
+    public function getAnswerDaySeventeen()
+    {
+        $answer = '';
+
+        return 'Today\'s answer: ' . $answer;
+    }
+
+    public function getAnswerDayEighteen()
+    {
+        $answer = '';
+
+        return 'Today\'s answer: ' . $answer;
+    }
+
+    public function getAnswerDayNineteen()
+    {
+        $answer = '';
+
+        return 'Today\'s answer: ' . $answer;
+    }
+
+    public function getAnswerDayTwenty()
+    {
+        $answer = '';
+
+        return 'Today\'s answer: ' . $answer;
+    }
+
+    public function getAnswerDayTwentyone()
+    {
+        $answer = '';
+
+        return 'Today\'s answer: ' . $answer;
+    }
+
+    public function getAnswerDayTwentytwo()
+    {
+        $answer = '';
+
+        return 'Today\'s answer: ' . $answer;
+    }
+
+    public function getAnswerDayTwentythree()
+    {
+        $answer = '';
+
+        return 'Today\'s answer: ' . $answer;
+    }
+
+    public function getAnswerDayTwentyfour()
+    {
+        $answer = '';
+
+        return 'Today\'s answer: ' . $answer;
+    }
+
+    public function getAnswerDayTwentyfive()
+    {
+        $answer = '';
+
+        return 'Today\'s answer: ' . $answer;
+    }
 }
