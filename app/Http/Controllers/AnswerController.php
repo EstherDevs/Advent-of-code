@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Helpers\DayFive;
 use App\Http\Helpers\DayFour;
 use App\Http\Helpers\DayOne;
 use App\Http\Helpers\DayThree;
@@ -67,7 +68,10 @@ class AnswerController extends Controller
 
     public function getAnswerDayFive()
     {
-        $answer = '';
+        $input = $this->getDayInputFile('day-5.php');
+
+        $helper = new DayFive();
+        $answer = $helper->getAnswer($input);
 
         return 'Today\'s answer: ' . $answer;
     }
