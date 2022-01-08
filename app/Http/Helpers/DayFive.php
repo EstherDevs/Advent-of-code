@@ -8,10 +8,12 @@ class DayFive
     {
         $coordArray = $this->getInputAsCoordArray($input);
         $mapArray = $this->getMapCoordArray($coordArray);
+        $mapArrayPartTwo = $this->getMapCoordArrayWithDiagonals($coordArray, $mapArray);
 
         $answerPartOne = $this->getOverlappingPoints($mapArray);
+        $answerPartTwo = $this->getOverlappingPoints($mapArrayPartTwo);
 
-        return 'The answer for part one is: ' . $answerPartOne . ' And for part two is: ';
+        return 'The answer for part one is: ' . $answerPartOne . ' And for part two is: ' . $answerPartTwo;
     }
 
     private function getInputAsCoordArray(string $input)
@@ -61,6 +63,37 @@ class DayFive
                     }
 
                     $mapArray[$point][$coord[$y1]]++;
+                }
+            }
+        }
+
+        return $mapArray;
+    }
+
+    private function getMapCoordArrayWithDiagonals(array $coordArray, array $mapArray)
+    {
+        $x1 = 0;
+        $y1 = 1;
+        $x2 = 2;
+        $y2 = 3;
+
+        foreach($coordArray as $coord) {
+            $rangeX = range($coord[$x1], $coord[$x2]);
+            $rangeY = range($coord[$y1], $coord[$y2]);
+            $lenX = count($rangeX);
+            $lenY = count($rangeY);
+
+            if ($lenX == $lenY) {
+                // Digagonal line
+                $firstY = $rangeY[0];
+                $yCounter = 0;
+                foreach ($rangeX as $xPos) {
+                    if(!isset($mapArray[$xPos][$rangeY[$yCounter]])) {
+                        $mapArray[$xPos][$rangeY[$yCounter]] = 0;
+                    }
+
+                    $mapArray[$xPos][$rangeY[$yCounter]] ++;
+                    $yCounter ++;
                 }
             }
         }
