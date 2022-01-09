@@ -9,6 +9,7 @@ use App\Http\Helpers\DayNine;
 use App\Http\Helpers\DayOne;
 use App\Http\Helpers\DaySeven;
 use App\Http\Helpers\DaySix;
+use App\Http\Helpers\DayTen;
 use App\Http\Helpers\DayThree;
 use App\Http\Helpers\DayTwo;
 use Illuminate\Http\Request;
@@ -126,7 +127,11 @@ class AnswerController extends Controller
 
     public function getAnswerDayTen()
     {
-        $answer = '';
+        $input = trim($this->getDayInputFile('day-10.php'));
+        $inputArray = $this->getDayInputAsArray($input);
+
+        $helper = new DayTen();
+        $answer = $helper->getAnswer($inputArray);
 
         return 'Today\'s answer: ' . $answer;
     }
