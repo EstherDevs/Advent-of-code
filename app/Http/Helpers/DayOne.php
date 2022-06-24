@@ -9,20 +9,28 @@ class DayOne
 
     }
 
-    public function getAnswer($inputArray)
+    /**
+     * @param array $inputArray
+     * @return string
+     */
+    public function getAnswer(array $inputArray) : string
     {
         $answerPartOne = $this->getIncreaseAmount($inputArray);
         $answerPartTwo = $this->getSumIncreaseAmount($inputArray);
         return 'Answer part one is: ' . $answerPartOne . ' and answer part two is: ' . $answerPartTwo;
     }
 
-    private function getIncreaseAmount($inputArray)
+    /**
+     * @param array $inputArray
+     * @return int
+     */
+    private function getIncreaseAmount(array $inputArray) : int
     {
         $increases = 0;
         $previousInput = null;
 
-        foreach($inputArray as $input) {
-            if($previousInput && $previousInput < $input) {
+        foreach ($inputArray as $input) {
+            if ($previousInput && $previousInput < $input) {
                 $increases += 1;
             }
 
@@ -32,12 +40,16 @@ class DayOne
         return $increases;
     }
 
-    private function getSumIncreaseAmount($inputArray)
+    /**
+     * @param array $inputArray
+     * @return int
+     */
+    private function getSumIncreaseAmount(array $inputArray) : int
     {
         $compoundedNumbers = [];
 
-        foreach($inputArray as $key => $value) {
-            if(isset($inputArray[$key + 2])) {
+        foreach ($inputArray as $key => $value) {
+            if (isset($inputArray[$key + 2])) {
                 $compoundedNumbers[] = $value + $inputArray[$key + 1] + $inputArray[$key + 2];
             }
         }
