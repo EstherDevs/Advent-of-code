@@ -2,8 +2,6 @@
 
 namespace App\Http\Helpers;
 
-use phpDocumentor\Reflection\Utils;
-
 class DayOne
 {
     public function __construct()
@@ -15,7 +13,7 @@ class DayOne
     {
         $answerPartOne = $this->getIncreaseAmount($inputArray);
         $answerPartTwo = $this->getSumIncreaseAmount($inputArray);
-        return 'answer part one is: ' . $answerPartOne . ' and answer two is: ' . $answerPartTwo;
+        return 'Answer part one is: ' . $answerPartOne . ' and answer part two is: ' . $answerPartTwo;
     }
 
     private function getIncreaseAmount($inputArray)
